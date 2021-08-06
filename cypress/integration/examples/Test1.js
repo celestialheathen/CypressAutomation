@@ -10,9 +10,11 @@ describe('My first test', function() {
 
     cy.get('.product:visible').should('have.length', 4)
 
-    cy.get('.products').find('.product').should('have.length', 4)
+    cy.get('.products').as('productLocator')
 
-    cy.get('.products').find('.product').eq(2).contains('ADD TO CART').click()
+    cy.get('@productLocator').find('.product').should('have.length', 4)
+
+    cy.get('@productLocator').find('.product').eq(2).contains('ADD TO CART').click()
 
     cy.get('.products').find('.product').each(($el, index, $list) => {
       const textVeg = $el.find('h4.product-name').text()
